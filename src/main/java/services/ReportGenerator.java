@@ -21,17 +21,20 @@ public class ReportGenerator {
     }
 
     public void generateActiveBorrowers(List<User> users) {
-        System.out.println("Active Borrowers: ");
-        users.stream()
-                .filter(u -> u.getBorrowedBooksHistory().stream()
-                        .anyMatch(bb -> !bb.isReturned()))
-                .forEach(u -> {
-                    long count = u.getBorrowedBooksHistory().stream()
-                            .filter(bb -> !bb.isReturned()).count();
-                    System.out.println(u.getName() + " - currently borrowed: " + count);
-                });
-        System.out.println();
+    System.out.println("Active Borrowers: ");
+    users.stream()
+            .filter(u -> u.getBorrowedBooksHistory().stream()
+                    .anyMatch(bb -> !bb.isReturned()))
+            .forEach(u -> {
+                long count = u.getBorrowedBooksHistory().stream()
+                        .filter(bb -> !bb.isReturned()).count();                
+                String membershipType = u.getClass().getSimpleName();
+
+                System.out.println(u.getName() + " (" + membershipType + ") - currently borrowed: " + count);
+            });
+    System.out.println();
     }
+
 
     public void generateOverdueBooks(List<User> users) {
     System.out.println("Overdue Books:");
